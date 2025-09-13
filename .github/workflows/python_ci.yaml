@@ -1,0 +1,13 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:               # 👈 job name is required
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4

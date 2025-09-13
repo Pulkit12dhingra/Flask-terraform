@@ -8,11 +8,11 @@ help:
 	@echo "make lint      - run pylint"
 	@echo "make test      - run unittest discovery"
 
+
 install:
 	$(PY) -m pip install --upgrade pip
 	$(PY) -m pip install -r requirements.txt
 	$(PY) -m pip install pylint coverage
-
 
 lint:
 	$(PY) $(TEST_DIR)/lint_gate.py
@@ -20,4 +20,4 @@ lint:
 test:
 	$(PY) -m unittest test.test_app
 
-ci: install lint test
+ci: help

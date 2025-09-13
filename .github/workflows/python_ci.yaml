@@ -19,7 +19,25 @@ jobs:
 
       - name: Run CI steps via Makefile
         run: make ci
+  
+  terraform-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
+      - name: Set up TFLint
+        uses: terraform-linters/setup-tflint@v4
+
+      - name: Set up tfsec
+        uses: aquasecurity/setup-tfsec@v1
+
+      - name: Run TFLint
+        run: tflint
+
+      - name: Run tfsec
+        run: tfsec .
+  
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest

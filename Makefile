@@ -10,7 +10,9 @@ help:
 
 install:
 	$(PY) -m pip install --upgrade pip
+	$(PY) -m pip install -r requirements.txt
 	$(PY) -m pip install pylint coverage
+
 
 lint:
 	$(PY) $(TEST_DIR)/lint_gate.py

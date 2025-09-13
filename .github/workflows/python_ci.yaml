@@ -21,27 +21,29 @@ jobs:
         run: make ci
   
   terraform-checks:
+    name: terraform-checks
     runs-on: ubuntu-latest
+    needs: testing
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up TFLint
-        uses: terraform-linters/setup-tflint@v4
-
-      - name: Set up tfsec
-        uses: aquasecurity/setup-tfsec@v1
+        uses: terraform-linters/setup-tflint@v5
 
       - name: Run TFLint
         run: tflint
 
       - name: Run tfsec
-        run: tfsec .
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          additional_args: --minimum-severity HIGH
+          soft_fail: false
   
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
-    needs: testing          # 👈 only runs if ci succeeded
+    needs: terraform-checks
     steps:
       - name: Checkout
         uses: actions/checkout@v4

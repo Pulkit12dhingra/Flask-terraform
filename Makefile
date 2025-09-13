@@ -17,3 +17,5 @@ lint:
 
 test:
 	$(PY) -m unittest test.test_app
+
+ci: install lint test

@@ -19,3 +19,8 @@ jobs:
 
       - name: Run CI steps via Makefile
         run: make ci
+
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:${{ github.sha }} .
+          docker images | grep myapp

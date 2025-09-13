@@ -6,7 +6,8 @@ import subprocess
 
 THRESHOLD = 7.0
 
-EXCLUDE_DIRS = {"venv", ".venv", "__pycache__", "build", "dist"}
+EXCLUDE_DIRS = {"__pycache__", "build", "dist"}
+
 
 def get_python_files(root="."):
     files = []
@@ -18,6 +19,7 @@ def get_python_files(root="."):
             continue
         files.append(str(path))
     return files
+
 
 def main():
     py_files = get_python_files(".")
@@ -48,6 +50,7 @@ def main():
     if score < THRESHOLD:
         print(f"Lint score below {THRESHOLD} — failing the workflow.")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()

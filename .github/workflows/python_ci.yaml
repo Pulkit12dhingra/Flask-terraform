@@ -85,5 +85,5 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: terraform plan -input=false -var-file=env/dev.tfvars
+        run: terraform plan 
         # use "terraform apply -auto-approve" if you want to actually deploy

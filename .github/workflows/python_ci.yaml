@@ -58,14 +58,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      id-token: write      # 👈 REQUIRED for OIDC
+      id-token: write
       contents: read
     defaults:
       run:
-        working-directory: infra   # set to your .tf folder
+        working-directory: infra   # adjust if your .tf files are elsewhere
     steps:
       - name: Checkout
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
 
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4

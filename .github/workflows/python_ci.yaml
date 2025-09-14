@@ -114,3 +114,6 @@ jobs:
 
       - name: Terraform Plan (test)
         run: terraform plan -input=false -var="image_url=${{ needs.build.outputs.image_uri }}"
+      
+      - name: Terraform Apply (auto-approve)
+        run: terraform apply -input=false -auto-approve 

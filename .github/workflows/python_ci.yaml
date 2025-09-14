@@ -70,7 +70,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::<ACCOUNT_ID>:role/<GH_OIDC_TERRAFORM_ROLE>
+          role-to-assume: arn:aws:iam::217262486301:role/Github-Actions
           aws-region: eu-west-1
 
       - name: Verify AWS identity

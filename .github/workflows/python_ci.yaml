@@ -91,4 +91,4 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan (dev)
-        run: terraform plan -input=false -var-file=env/dev.tfvars
+        run: terraform plan 

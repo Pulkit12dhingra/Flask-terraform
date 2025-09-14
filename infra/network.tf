@@ -1,4 +1,4 @@
-resource "aws_vpc" "test" {
+/* resource "aws_vpc" "test" {
   cidr_block                       = "10.1.0.0/16"
   enable_dns_hostnames             = true
   enable_dns_support               = true
@@ -6,12 +6,12 @@ resource "aws_vpc" "test" {
   tags = {
     Name = "dev"
   }
-}
+} */
 
 # comment
 
 resource "aws_subnet" "subnet_a_public" {
-  vpc_id                  = aws_vpc.test.id
+  vpc_id                  = var.vpc_id
   cidr_block              = "10.1.0.0/20"
   map_public_ip_on_launch = true
   availability_zone       = var.availablity_zone
@@ -21,14 +21,14 @@ resource "aws_subnet" "subnet_a_public" {
 }
 
 resource "aws_internet_gateway" "test_internet_gateway" {
-  vpc_id = aws_vpc.test.id
+  vpc_id = var.vpc_id
   tags = {
     Name = "dev-gatwy"
   }
 }
 
 resource "aws_route_table" "test_table" {
-  vpc_id = aws_vpc.test.id
+  vpc_id = var.vpc_id
   tags = {
     Name = "dev-route-table"
   }

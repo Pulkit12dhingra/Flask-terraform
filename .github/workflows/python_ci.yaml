@@ -21,7 +21,7 @@ jobs:
         run: make ci
   
   terraform-checks:
-    name: terraform-checks
+    name: Terraform Checks
     runs-on: ubuntu-latest
     needs: testing
     steps:
@@ -52,3 +52,38 @@ jobs:
         run: |
           docker build -t myapp:${{ github.sha }} .
           docker images | grep myapp
+
+  terraform-apply:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    needs: build
+    defaults:
+      run:
+        working-directory: infra   # 👈 adjust if your .tf files are in a subfolder
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::217262486301:role/Github-Actions
+          aws-region: eu-west-1
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.5
+
+      - name: Terraform Init
+        run: terraform init -input=false -reconfigure
+
+      - name: Select or create workspace
+        run: terraform workspace select dev || terraform workspace new dev
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -var-file=env/dev.tfvars
+        # use "terraform apply -auto-approve" if you want to actually deploy
